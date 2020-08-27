@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import { connect } from 'react-redux';
+import { setLocalNotification, clearLocalNotification } from '../utils/notificationAPI';
 
 /**
  * Component for playing a short quiz
@@ -35,6 +36,10 @@ class Quiz extends React.Component {
     showAnswer = () => {
         this.setState({shouldShowAnswer: !this.state.shouldShowAnswer});
     };
+
+    componentDidMount() {
+        clearLocalNotification().then(setLocalNotification);
+    }
 
     render() {
         const {questionIndex, correctAnswers, shouldShowAnswer} = this.state;

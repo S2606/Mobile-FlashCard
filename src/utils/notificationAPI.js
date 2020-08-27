@@ -4,6 +4,12 @@ import * as Permissions from 'expo-permissions';
 
 const NOTIFICATION_KEY = 'notification:mobile-flashcards';
 
+export function clearLocalNotification() {
+    return AsyncStorage.removeItem(NOTIFICATION_KEY).then(
+      Notifications.cancelAllScheduledNotificationsAsync
+    );
+  }
+
 function buildNotification() {
     return {
         title: 'Mobile Flashcards',
@@ -26,9 +32,12 @@ export function setLocalNotification() {
                     if (status === 'granted') {
                         Notifications.cancelAllScheduledNotificationsAsync().then(() => {
                             let today = new Date();
-                            today.setDate(today.getDate());
-                            today.setHours(22, 16, 0);
-                            // today.setTime(today.getTime() + 2 * 60000);
+                            //today.setDate(today.getDate());
+                            //today.setHours(10, 15, 0);
+                            
+                            today.setDate(today.getDate() + 1);
+                            today.setHours(20);
+                            today.setMinutes(0);
 
                             const notification = buildNotification();
 
